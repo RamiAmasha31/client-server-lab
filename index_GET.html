@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>jQuery AJAX Example</title>
+    <!-- Link to jQuery library -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  </head>
+  <body>
+    <div id="users-list">
+      <!-- User names will be displayed here -->
+    </div>
+
+    <script>
+      $(document).ready(function () {
+        // jQuery AJAX request
+        $.ajax({
+          url: "https://jsonplaceholder.typicode.com/users",
+          method: "GET",
+          success: function (users) {
+            console.log("GET Users Success:", users);
+            // Example: Displaying user names
+            users.forEach(function (user) {
+              // Create a new <p> element for each user name and append it to #users-list
+              $("#users-list").append("<p>User Name: " + user.name + "</p>");
+            });
+          },
+          error: function (xhr, status, error) {
+            console.error("GET Users Error:", error);
+          },
+        });
+      });
+    </script>
+  </body>
+</html>

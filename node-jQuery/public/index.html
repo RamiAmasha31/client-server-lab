@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Data Table</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+
+    <!-- DataTables CSS -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.datatables.net/v/bs4/dt-1.11.4/datatables.min.css"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <h1>User Data Table</h1>
+      <table
+        id="user-table"
+        class="table table-striped table-bordered"
+        style="width: 100%"
+      >
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>City</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Table body will be populated dynamically -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- DataTables JavaScript -->
+    <script
+      type="text/javascript"
+      src="https://cdn.datatables.net/v/bs4/dt-1.11.4/datatables.min.js"
+    ></script>
+    <!-- Custom script to fetch and populate table data -->
+    <script>
+      $(document).ready(function () {
+        $("#user-table").DataTable({
+          ajax: {
+            url: "http://localhost:3000/api/users", // Endpoint to fetch data from Node.js server
+            dataSrc: "", // Specify empty string to read data directly
+          },
+          columns: [{ data: "name" }, { data: "email" }, { data: "city" }],
+          lengthMenu: [
+            [5, 10, 25, 50, -1],
+            [5, 10, 25, 50, "All"],
+          ], // Show records per page options
+          pageLength: 10, // Default records per page
+          order: [[0, "asc"]], // Default sorting by first column (name) ascending
+        });
+      });
+    </script>
+  </body>
+</html>

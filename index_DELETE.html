@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>jQuery DELETE Request Example</title>
+    <!-- Link to jQuery library -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  </head>
+  <body>
+    <div id="user-info">
+      <!-- Deleted user information will be displayed here -->
+    </div>
+
+    <button id="delete-user">Delete User</button>
+
+    <script>
+      $(document).ready(function () {
+        // Function to display user information
+        function displayUserInfo(user, message) {
+          $("#user-info").html(
+            "<h2>Deleted User</h2>" +
+              "<p><strong>Name:</strong> " +
+              user.name +
+              "</p>" +
+              "<p><strong>Email:</strong> " +
+              user.email +
+              "</p>" +
+              "<p><em>" +
+              message +
+              "</em></p>"
+          );
+        }
+
+        // DELETE request to delete a user
+        $("#delete-user").on("click", function () {
+          $.ajax({
+            url: "https://jsonplaceholder.typicode.com/users/1", // Delete user with ID 1
+            method: "DELETE",
+            success: function (deletedUser) {
+              console.log("DELETE User Success:", deletedUser);
+              displayUserInfo(deletedUser, "User deleted successfully.");
+            },
+            error: function (xhr, status, error) {
+              console.error("DELETE User Error:", error);
+            },
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

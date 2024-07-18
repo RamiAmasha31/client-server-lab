@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>jQuery PUT Request Example</title>
+    <!-- Link to jQuery library -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  </head>
+  <body>
+    <div id="user-info">
+      <!-- User information will be displayed here -->
+    </div>
+
+    <script>
+      $(document).ready(function () {
+        // Variables to store initial and updated user data
+        var initialUser = {};
+        var updatedUser = {};
+
+        // GET request to fetch initial user data
+        $.ajax({
+          url: "https://jsonplaceholder.typicode.com/users/1", // Fetch user with ID 1
+          method: "GET",
+          success: function (user) {
+            console.log("GET User Success:", user);
+            // Store initial user data
+            initialUser = user;
+
+            // Display initial user information
+            $("#user-info").html(
+              "<p>Initial User Name: " +
+                initialUser.name +
+                "</p>" +
+                "<p>Initial User Email: " +
+                initialUser.email +
+                "</p>"
+            );
+
+            // PUT request to update user information
+            $.ajax({
+              url: "https://jsonplaceholder.typicode.com/users/1", // Update user with ID 1
+              method: "PUT",
+              data: {
+                name: "Updated Name", // Update user's name
+                email: "updated_email@example.com", // Update user's email
+              },
+              success: function (updatedUserResponse) {
+                console.log("PUT User Success:", updatedUserResponse);
+                // Store updated user data
+                updatedUser = updatedUserResponse;
+                // Display updated user information after successful update
+                $("#user-info").append(
+                  "<p>Updated User Name: " +
+                    updatedUser.name +
+                    "</p>" +
+                    "<p>Updated User Email: " +
+                    updatedUser.email +
+                    "</p>"
+                );
+              },
+              error: function (xhr, status, error) {
+                console.error("PUT User Error:", error);
+              },
+            });
+          },
+          error: function (xhr, status, error) {
+            console.error("GET User Error:", error);
+          },
+        });
+      });
+    </script>
+  </body>
+</html>
